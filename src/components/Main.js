@@ -1,10 +1,10 @@
-import Map from './components/Map.js';
-import Form from './components/Form.js';
+import Map from './Map.js';
+import Input from './Input.js';
 
 function Main() {
     return (
       <div className="App">
-        <Form />
+        <Input />
         <Map />
       </div>
     );
