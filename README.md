@@ -18,18 +18,31 @@
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credit and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
-Time Estimates
-For each of the lab features, make an estimate of the time it will take you to complete the feature, and record your start and finish times for that feature:
 
-## Features
+### Lab Partners
 
-### Lab 6, Feature 1: set up repo & API keys
+- Austin Limanek
+
+### Resources
+
+## Time Estimates
+
+### Lab 6, Feature 1: Set up Repo & API keys (branch lab-06)
 
 Estimate of time needed to complete: 1.5h
 
 Start time: 12:45 PM
 
-Finish time: _____
+Finish time: 1:30 PM
 
-Actual time needed to complete: _____
+Actual time needed to complete: 45m
+
+### Lab 6, Feature 2: Locations
+
+Estimate of time needed to complete: 3h
+
+Start time: 3:00 PM
+
+Finish time: 1:30 PM
+
+Actual time needed to complete: 45m
