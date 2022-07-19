@@ -1,38 +1,49 @@
+header {
+  padding: 30px 0;
+  background-image: url('./img/map-banner.png');
+  background-size:cover;
+  width:100%;
+}
+
+header h1 {
+  font-size: 4em;
+}
+
+.whiteBackground {
+  background-color:white;
+  padding: 10px;
+  box-shadow: 5px 5px black;
+  border-radius: 5px;
+  width:fit-content;
+  margin:auto;
+}
+
 .App {
   text-align: center;
+  font-family: 'Galdeano', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#searchForm input {
+  width: 170px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#mainInfo {
+  max-width: 300px;
+  margin: 20px;
+  border-right: 4px solid black;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#results {
+  margin-top: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+
+.map {
+  margin: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.map img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
 }

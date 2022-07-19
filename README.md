@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# City Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Author**: Lucy Gelderloos
+**Version**: 1.0.0
 
-## Available Scripts
+## Overview
+<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
 
-In the project directory, you can run:
+## Getting Started
+<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
 
-### `npm start`
+## Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Day 1 Whiteboard](./src/img/lab-06-whiteboard.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Change Log
+<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
-### `npm test`
+01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Credit and Collaborations
 
-### `npm run build`
+### Lab Partners
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Austin Limanek
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Resources
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [Using the LocationIQ API](https://www.youtube.com/watch?v=ZXT8i0qR2vE)
+- Map image by [Waldemar Brandt]("https://unsplash.com/@waldemarbrandt67w?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText") on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText")
+  
 
-### `npm run eject`
+## Time Estimates
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Lab 6, Feature 1: Set up Repo & API keys (branch lab-06)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Estimate of time needed to complete: 1.5h
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Start time: 12:45 PM
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Finish time: 1:30 PM
 
-## Learn More
+Actual time needed to complete: 45m
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Lab 6, Feature 2: Locations
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Estimate of time needed to complete: 3h
 
-### Code Splitting
+Start time: 3:00 PM
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Finish time: 7:30 PM
 
-### Analyzing the Bundle Size
+Actual time needed to complete: 4.5h
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Lab 6, Feature 3: Map
 
-### Making a Progressive Web App
+Estimate of time needed to complete: 2h
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Start time: 7:30 PM
 
-### Advanced Configuration
+Finish time: 9:00 PM
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Actual time needed to complete: 1.5h
 
-### Deployment
+### Lab 6, Feature 4: Error
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Estimate of time needed to complete: 1h
 
-### `npm run build` fails to minify
+Start time: 9:00 PM
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Finish time: 10:00 PM
+
+Actual time needed to complete: 1h
