@@ -25,6 +25,8 @@
 
 ### Resources
 
+- [Using the LocationIQ API](https://www.youtube.com/watch?v=ZXT8i0qR2vE)
+
 ## Time Estimates
 
 ### Lab 6, Feature 1: Set up Repo & API keys (branch lab-06)
