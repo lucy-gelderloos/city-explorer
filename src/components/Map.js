@@ -1,4 +1,5 @@
 import React from 'react';
+import placeholder from '../img/map-placeholder.png'
 
 class Map extends React.Component {
     constructor(props) {
@@ -9,15 +10,11 @@ class Map extends React.Component {
         this.apiKey = process.env.REACT_APP_API_KEY;
     }
 
-    displayMap(lat,lon) {
-        let mapUrl = `${this.mapSearchUrl}key=${this.apiKey}&center=${this.lat},${this.lon}`
-        return mapUrl;
-    }
-
     render() {
         return (
             <div className="map">
-                <img src={this.mapUrl} alt=""/>
+                <img src={placeholder} alt=""/>
+                {/* <img src={`${this.mapSearchUrl}key=${this.apiKey}&center=${this.lat},${this.lon}`} alt=""/> */}
             </div>
         )
     }

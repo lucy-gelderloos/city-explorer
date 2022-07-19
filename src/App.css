@@ -1,3 +1,49 @@
+header {
+  padding: 30px 0;
+  background-image: url('./img/map-banner.png');
+  background-size:cover;
+  width:100%;
+}
+
+header h1 {
+  font-size: 4em;
+}
+
+.whiteBackground {
+  background-color:white;
+  padding: 10px;
+  box-shadow: 5px 5px black;
+  border-radius: 5px;
+  width:fit-content;
+  margin:auto;
+}
+
 .App {
   text-align: center;
+  font-family: 'Galdeano', sans-serif;
+}
+
+#searchForm input {
+  width: 170px;
+}
+
+#mainInfo {
+  max-width: 300px;
+  margin: 20px;
+  border-right: 4px solid black;
+}
+
+#results {
+  margin-top: 20px;
+}
+
+
+.map {
+  margin: 20px;
+}
+
+.map img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
 }

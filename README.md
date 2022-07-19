@@ -26,6 +26,8 @@
 ### Resources
 
 - [Using the LocationIQ API](https://www.youtube.com/watch?v=ZXT8i0qR2vE)
+- Map image by [Waldemar Brandt]("https://unsplash.com/@waldemarbrandt67w?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText") on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText")
+  
 
 ## Time Estimates
 
@@ -45,6 +47,16 @@ Estimate of time needed to complete: 3h
 
 Start time: 3:00 PM
 
-Finish time:
+Finish time: 7:30 PM
 
-Actual time needed to complete:
+Actual time needed to complete: 4.5h
+
+### Lab 6, Feature 3: Map
+
+Estimate of time needed to complete: 2h
+
+Start time: 7:30 PM
+
+Finish time: 9:00 PM
+
+Actual time needed to complete: 1.5h
