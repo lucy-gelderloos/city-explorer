@@ -4,7 +4,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Alert from 'react-bootstrap/Alert';
+// import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
@@ -20,18 +20,19 @@ class Main extends React.Component {
             cityName: '',
             lat: '',
             lon: '',
+            forecast: '',
             success: true
         };
         this.apiKey = process.env.REACT_APP_API_KEY;
         this.searchUrl = "https://us1.locationiq.com/v1/search.php?format=json&";
+        this.weatherUrl = ""
         this.cities = props.cities;
         // this.blankSearch = true;
     }
-
     
     handleInputCity = event => {
         this.setState({searchFor: event.target.value});
-        console.log('event.target.value', event.target.value)
+        // console.log('event.target.value', event.target.value)
     }
 
     handleSubmit = (event) => {
@@ -39,14 +40,25 @@ class Main extends React.Component {
         this.handleSearchCity(this.state.searchFor);
         console.log('searchFor', this.state.searchFor)
     }
+
+    getWeather = (cityName,lat,lon) => {
+        const weatherUrl = `http://localhost:3030/weather?cityName=${cityName}&lat=${lat}&lon=${lon}`;
+        // const weatherUrl = `https://city-explorer-b34ce2.herokuapp.com/weather?cityName=${cityName}&lat=${lat}&lon=${lon}`;
+        axios.get(weatherUrl)
+        .then(response => {
+           this.setState({forecast: response.data});
+            console.log('this.state.forecast', this.state.forecast);
+        })
+    }
     
     handleSearchCity = (searchFor) => {
         const API = `https://us1.locationiq.com/v1/search.php?format=json&key=${this.apiKey}&q=${searchFor}&format=json`;
         axios.get(API)
         .then(response => {
-        console.log('response.data[0]',response.data[0].display_name);
-        this.setState({ cityName:response.data[0].display_name, lat:response.data[0].lat, lon:response.data[0].lon });
-        console.log('this.state', this.state);
+        this.setState({ cityName:response.data[0].display_name, lat:Math.round(response.data[0].lat), lon:Math.round(response.data[0].lon) });
+        this.getWeather(this.state.searchFor, Math.round(response.data[0].lat), Math.round(response.data[0].lon));
+        
+
         })
         .catch(err => {
         this.setState({success:false});
@@ -54,10 +66,10 @@ class Main extends React.Component {
     }
 
     render() {
-        console.log('render this.state', this.state);
+        // console.log('render this.state', this.state);
         return (
         <div className="Main">
-            <Alert show={this.success} onClose={() => this.success = false} dismissible>Please enter Seattle, Olympia, or Portland</Alert>
+            {/* <Alert show={this.success} onClose={() => this.success = false} dismissible>Please enter Seattle, Olympia, or Portland</Alert> */}
             <Row>
                 <Col id="mainInfo">
                     <div id="searchForm">
@@ -74,13 +86,13 @@ class Main extends React.Component {
                     </div>
                     <Card id="results">
                         <Card.Body>
-                            <Card.Title>{this.state.city.display_name}</Card.Title>
-                            <Card.Subtitle>Latitude: {this.state.city.lat}, <br />Longitude: {this.state.city.lon}</Card.Subtitle>
+                            <Card.Title>{this.state.cityName}</Card.Title>
+                            <Card.Subtitle>Latitude: {this.state.lat}, <br />Longitude: {this.state.lon}</Card.Subtitle>
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col>
-                    <Map lat={this.state.city.lat} lon={this.state.city.lon} />
+                    <Map lat={this.state.lat} lon={this.state.lon} />
                 </Col>
             </Row>
         </div>

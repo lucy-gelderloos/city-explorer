@@ -70,3 +70,13 @@ Start time: 9:00 PM
 Finish time: 10:00 PM
 
 Actual time needed to complete: 1h
+
+### Lab 7, Feature 1: Weather
+
+Estimate of time needed to complete: 2h
+
+Start time: 10:00 PM
+
+Finish time: n/a
+
+Actual time needed to complete: n/a
