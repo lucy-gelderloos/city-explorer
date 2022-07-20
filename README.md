@@ -55,21 +55,21 @@ Actual time needed to complete: 4.5h
 
 Estimate of time needed to complete: 2h
 
-Start time: 7:30 PM
+Start time: 7:30 PM Tuesday
 
-Finish time: 9:00 PM
+Finish time: 4:45 PM Thursday
 
-Actual time needed to complete: 1.5h
+Actual time needed to complete: 2.5h
 
 ### Lab 6, Feature 4: Error
 
 Estimate of time needed to complete: 1h
 
-Start time: 9:00 PM
+Start time: 9:00 PM Tuesday
 
-Finish time: 10:00 PM
+Finish time: 4:00 PM Thursday
 
-Actual time needed to complete: 1h
+Actual time needed to complete: 1.5h
 
 ### Lab 7, Feature 1: Weather
 

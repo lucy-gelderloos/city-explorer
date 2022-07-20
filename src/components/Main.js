@@ -4,7 +4,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-// import Alert from 'react-bootstrap/Alert';
+import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import axios from 'axios';
@@ -21,7 +21,8 @@ class Main extends React.Component {
             lat: '',
             lon: '',
             forecast: '',
-            success: true
+            error: '',
+            searchFor: ''
         };
         this.apiKey = process.env.REACT_APP_API_KEY;
         this.searchUrl = "https://us1.locationiq.com/v1/search.php?format=json&";
@@ -30,7 +31,7 @@ class Main extends React.Component {
         // this.blankSearch = true;
     }
     
-    handleInputCity = event => {
+    handleInputCity = (event) => {
         this.setState({searchFor: event.target.value});
         // console.log('event.target.value', event.target.value)
     }
@@ -38,12 +39,11 @@ class Main extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.handleSearchCity(this.state.searchFor);
-        console.log('searchFor', this.state.searchFor)
+        // console.log('searchFor', this.state.searchFor)
     }
 
     getWeather = (cityName,lat,lon) => {
         const weatherUrl = `http://localhost:3030/weather?cityName=${cityName}&lat=${lat}&lon=${lon}`;
-        // const weatherUrl = `https://city-explorer-b34ce2.herokuapp.com/weather?cityName=${cityName}&lat=${lat}&lon=${lon}`;
         axios.get(weatherUrl)
         .then(response => {
            this.setState({forecast: response.data});
@@ -54,22 +54,25 @@ class Main extends React.Component {
     handleSearchCity = (searchFor) => {
         const API = `https://us1.locationiq.com/v1/search.php?format=json&key=${this.apiKey}&q=${searchFor}&format=json`;
         axios.get(API)
-        .then(response => {
-        this.setState({ cityName:response.data[0].display_name, lat:Math.round(response.data[0].lat), lon:Math.round(response.data[0].lon) });
-        this.getWeather(this.state.searchFor, Math.round(response.data[0].lat), Math.round(response.data[0].lon));
-        
 
+        .then(response => {
+            this.setState({ cityName:this.state.searchFor, lat:response.data[0].lat, lon:response.data[0].lon });
+            // console.log('this.state.lat', this.state.lat);
+            // this.getWeather(this.state.searchFor, Math.round(response.data[0].lat), Math.round(response.data[0].lon));
         })
+
         .catch(err => {
-        this.setState({success:false});
+            console.log(err);
+            this.setState({error:`Sorry, I don't recognize that one!`});
         })
     }
 
     render() {
         // console.log('render this.state', this.state);
+        console.log('render lon',this.state.lon);
         return (
         <div className="Main">
-            {/* <Alert show={this.success} onClose={() => this.success = false} dismissible>Please enter Seattle, Olympia, or Portland</Alert> */}
+            <Alert show={this.state.error} onClose={() => this.setState({error:false})} dismissible>{this.state.error}</Alert>
             <Row>
                 <Col id="mainInfo">
                     <div id="searchForm">
@@ -87,7 +90,7 @@ class Main extends React.Component {
                     <Card id="results">
                         <Card.Body>
                             <Card.Title>{this.state.cityName}</Card.Title>
-                            <Card.Subtitle>Latitude: {this.state.lat}, <br />Longitude: {this.state.lon}</Card.Subtitle>
+                            <Card.Subtitle>Latitude: {this.state.lat}, <br />Longitude: {Math.round(this.state.lon)}</Card.Subtitle>
                         </Card.Body>
                     </Card>
                 </Col>
