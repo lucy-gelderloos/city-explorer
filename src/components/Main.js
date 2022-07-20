@@ -7,8 +7,9 @@ import Card from 'react-bootstrap/Card';
 import Alert from 'react-bootstrap/Alert';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-// import axios from 'axios';
+import axios from 'axios';
 
+// weather url: https://city-explorer-b34ce2.herokuapp.com/
 // full url: https://us1.locationiq.com/v1/search.php?format=json&key=pk.0b8f887fdd8b9e9ce24daafe3e11972a&q=seattle
 
 class Main extends React.Component {
@@ -16,57 +17,47 @@ class Main extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            city: {},
-            searchFor: '',
-            cityName: 'Seattle',
-            latitude: 48,
-            longitude: 122,
+            cityName: '',
+            lat: '',
+            lon: '',
             success: true
         };
         this.apiKey = process.env.REACT_APP_API_KEY;
         this.searchUrl = "https://us1.locationiq.com/v1/search.php?format=json&";
         this.cities = props.cities;
-        this.blankSearch = true;
+        // this.blankSearch = true;
     }
 
     
     handleInputCity = event => {
         this.setState({searchFor: event.target.value});
+        console.log('event.target.value', event.target.value)
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
-        // demo of error message; replace when API is working
-        if(this.state.searchFor === ''){
-            this.blankSearch = true;
-            console.log(this.blankSearch);
-            return this.blankSearch;
-        }
-        else{
-            this.handleSearchCity(this.state.searchFor);
-        }
+        this.handleSearchCity(this.state.searchFor);
+        console.log('searchFor', this.state.searchFor)
     }
     
     handleSearchCity = (searchFor) => {
-        // const API = `${this.searchURL}key=${this.apiKey}&q=${this.cityName}}&format=json`;
-        // axios.get(API);
-        // .then(res => {
-        // console.log(res.data[0]);
-        // this.setState({ city:res.data[0] });
-        // })
-        // .catch(err => {
-        // this.setState({success:false})
-        // })
-
-        const testSearch = this.cities.filter(el => el.cityName.toLowerCase() === searchFor.toLowerCase());
-        this.setState({ cityName:testSearch[0].cityName, latitude:testSearch[0].lat, longitude:testSearch[0].lon})
+        const API = `https://us1.locationiq.com/v1/search.php?format=json&key=${this.apiKey}&q=${searchFor}&format=json`;
+        axios.get(API)
+        .then(response => {
+        console.log('response.data[0]',response.data[0].display_name);
+        this.setState({ cityName:response.data[0].display_name, lat:response.data[0].lat, lon:response.data[0].lon });
+        console.log('this.state', this.state);
+        })
+        .catch(err => {
+        this.setState({success:false});
+        })
     }
 
     render() {
-        console.log(this.state);
+        console.log('render this.state', this.state);
         return (
         <div className="Main">
-            <Alert show={this.blankSearch} onClose={() => this.blankSearch = false} dismissible>Please enter Seattle, Olympia, or Portland</Alert>
+            <Alert show={this.success} onClose={() => this.success = false} dismissible>Please enter Seattle, Olympia, or Portland</Alert>
             <Row>
                 <Col id="mainInfo">
                     <div id="searchForm">
@@ -83,13 +74,13 @@ class Main extends React.Component {
                     </div>
                     <Card id="results">
                         <Card.Body>
-                            <Card.Title>{this.state.cityName}</Card.Title>
-                            <Card.Subtitle>Latitude: {this.state.latitude}, <br />Longitude: {this.state.longitude}</Card.Subtitle>
+                            <Card.Title>{this.state.city.display_name}</Card.Title>
+                            <Card.Subtitle>Latitude: {this.state.city.lat}, <br />Longitude: {this.state.city.lon}</Card.Subtitle>
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col>
-                    <Map lat={this.state.latitude} lon={this.state.longitude} />
+                    <Map lat={this.state.city.lat} lon={this.state.city.lon} />
                 </Col>
             </Row>
         </div>

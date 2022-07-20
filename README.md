@@ -28,7 +28,6 @@
 
 - [Using the LocationIQ API](https://www.youtube.com/watch?v=ZXT8i0qR2vE)
 - Map image by [Waldemar Brandt]("https://unsplash.com/@waldemarbrandt67w?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText") on [Unsplash](https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText")
-  
 
 ## Time Estimates
 
