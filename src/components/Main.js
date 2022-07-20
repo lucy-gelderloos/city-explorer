@@ -44,7 +44,6 @@ class Main extends React.Component {
 
     getWeather = (cityName,lat,lon) => {
         const weatherUrl = `http://localhost:3030/weather?cityName=${cityName}&lat=${lat}&lon=${lon}`;
-        // const weatherUrl = `https://city-explorer-b34ce2.herokuapp.com/weather?cityName=${cityName}&lat=${lat}&lon=${lon}`;
         axios.get(weatherUrl)
         .then(response => {
            this.setState({forecast: response.data});
@@ -57,8 +56,9 @@ class Main extends React.Component {
         axios.get(API)
 
         .then(response => {
-            this.setState({ cityName:this.state.searchFor, lat:Math.round(response.data[0].lat), lon:Math.round(response.data[0].lon) });
-            this.getWeather(this.state.searchFor, Math.round(response.data[0].lat), Math.round(response.data[0].lon));
+            this.setState({ cityName:this.state.searchFor, lat:response.data[0].lat, lon:response.data[0].lon });
+            // console.log('this.state.lat', this.state.lat);
+            // this.getWeather(this.state.searchFor, Math.round(response.data[0].lat), Math.round(response.data[0].lon));
         })
 
         .catch(err => {
@@ -69,6 +69,7 @@ class Main extends React.Component {
 
     render() {
         // console.log('render this.state', this.state);
+        console.log('render lon',this.state.lon);
         return (
         <div className="Main">
             <Alert show={this.state.error} onClose={() => this.setState({error:false})} dismissible>{this.state.error}</Alert>
@@ -89,7 +90,7 @@ class Main extends React.Component {
                     <Card id="results">
                         <Card.Body>
                             <Card.Title>{this.state.cityName}</Card.Title>
-                            <Card.Subtitle>Latitude: {this.state.lat}, <br />Longitude: {this.state.lon}</Card.Subtitle>
+                            <Card.Subtitle>Latitude: {this.state.lat}, <br />Longitude: {Math.round(this.state.lon)}</Card.Subtitle>
                         </Card.Body>
                     </Card>
                 </Col>
