@@ -19,7 +19,7 @@ class Main extends React.Component {
             cityName: '',
             lat: '',
             lon: '',
-            forecast: '',
+            forecast: [],
             error: false,
             searchFor: ''
         };
@@ -28,6 +28,7 @@ class Main extends React.Component {
         this.weatherUrl = "http://localhost:3030/weather?"
         // this.weatherUrl = "https://city-explorer-b34ce2.herokuapp.com/?"
         this.cities = props.cities;
+        this.forecastArr = [];
         // this.blankSearch = true;
     }
     
@@ -49,7 +50,8 @@ class Main extends React.Component {
         .then(response => {
             console.log('response.data', response.data);
             this.setState({forecast: response.data});
-            console.log('this.state.forecast', this.state.forecast);
+            this.forecastArr = response.data.map(el => <Col key={response.data.indexOf(el)}><strong>{el.date}</strong><br />{el.condition}<br />High of {el.high}, low of {el.low}</Col>)
+            return this.forecastArr;
         })
         .catch(err => {
             console.log(err);
@@ -98,6 +100,12 @@ class Main extends React.Component {
                         <Card.Body>
                             <Card.Title>{this.state.cityName}</Card.Title>
                             <Card.Subtitle>Latitude: {Math.round(this.state.lat)}, <br />Longitude: {Math.round(this.state.lon)}</Card.Subtitle>
+                        </Card.Body>
+                    </Card>
+                    <Card id="forecastCard">
+                        <Card.Title>Three-day Forecast</Card.Title>
+                        <Card.Body show={this.state.error}>
+                            {this.forecastArr}
                         </Card.Body>
                     </Card>
                 </Col>
