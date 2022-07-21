@@ -27,8 +27,8 @@ class Main extends React.Component {
         this.locationUrl = "https://us1.locationiq.com/v1/search.php?format=json&";
         // this.weatherUrl = "http://localhost:3030/weather?"
         this.weatherUrl = "https://api.weatherbit.io/v2.0/forecast/daily?";
-        this.server = "http://localhost:3030";
-        // this.server = "https://city-explorer-b34ce2.herokuapp.com"
+        // this.server = "http://localhost:3030";
+        this.server = "https://city-explorer-b34ce2.herokuapp.com"
         this.movieUrl = "";
         this.forecastArr = [];
     }
