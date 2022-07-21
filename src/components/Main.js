@@ -74,8 +74,8 @@ class Main extends React.Component {
     
     
     handleSearchCity = (searchFor) => {
-        const API = `${this.locationUrl}&key=${this.locationApiKey}&q=${searchFor}`;
-        // const API = `https://us1.locationiq.com/v1/search.php?format=json&key=${this.locationApiKey}&q=${searchFor}`;
+        const API = `${this.locationUrl}&key=pk.0b8f887fdd8b9e9ce24daafe3e11972a&q=${searchFor}`;
+        // const API = `${this.locationUrl}&key=${this.locationApiKey}&q=${searchFor}`;
         axios.get(API)
 
         .then(response => {
