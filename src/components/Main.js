@@ -22,34 +22,35 @@ class Main extends React.Component {
             error: false,
             searchFor: ''
         };
-        this.locationApiKey = process.env.REACT_APP_LOCATION_IQAPI_KEY;
-        this.weatherApiKey = process.env.REACT_APP_WEATHERBITAPI_KEY;
-        this.searchUrl = "https://us1.locationiq.com/v1/search.php?format=json&";
+        this.locationApiKey = process.env.REACT_APP_LOCATION_IQ_API_KEY;
+        this.weatherApiKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
+        this.locationUrl = "https://us1.locationiq.com/v1/search.php?format=json&";
         // this.weatherUrl = "http://localhost:3030/weather?"
-        this.weatherUrl = "https://api.weatherbit.io/v2.0/forecast/daily?"
-        this.cities = props.cities;
+        this.weatherUrl = "https://api.weatherbit.io/v2.0/forecast/daily?";
+        this.server = "http://localhost:3030";
+        // this.server = "https://city-explorer-b34ce2.herokuapp.com"
+        this.movieUrl = "";
         this.forecastArr = [];
     }
     
     handleInputCity = (event) => {
         this.setState({searchFor: event.target.value});
-        // console.log('event.target.value', event.target.value)
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
         this.handleSearchCity(this.state.searchFor);
-        // console.log('searchFor', this.state.searchFor)
     }
 
     getWeather = (lat,lon) => {
-        const weatherQuery = `${this.weatherUrl}key=${this.weatherApiKey}&lat=${lat}&lon=${lon}`;
+        const weatherQuery = `${this.server}/weather?&cityName=${this.state.searchFor}&lat=${lat}&lon=${lon}`;
         console.log('weatherQuery',weatherQuery);
         axios.get(weatherQuery)
+
         .then(response => {
-            console.log('response.data.data', response.data.data);
-            this.setState({forecast: response.data.data});
-            this.forecastArr = response.data.data.map(el => <Col key={response.data.data.indexOf(el)}><strong>{el.valid_date}</strong><br />{el.weather.description}<br />High of {el.high_temp}, low of {el.low_temp}</Col>)
+            console.log('Main response', response);
+            this.setState({forecast: response.data});
+            this.forecastArr = response.data.map(el => <Col key={response.data.indexOf(el)}><strong>{el.date}</strong><br />{el.condition}<br />High of {el.high}, low of {el.low}</Col>)
             return this.forecastArr;
         })
         .catch(err => {
@@ -57,9 +58,11 @@ class Main extends React.Component {
             this.setState({error:`Sorry, I don't have the weather for that city! Please enter Seattle, Amman, or Paris. (${err.code}: ${err.message})`});
         })
     }
+
+    
     
     handleSearchCity = (searchFor) => {
-        const API = `https://us1.locationiq.com/v1/search.php?format=json&key=pk.0b8f887fdd8b9e9ce24daafe3e11972a&q=${searchFor}`;
+        const API = `${this.locationUrl}&key=${this.locationApiKey}&q=${searchFor}`;
         // const API = `https://us1.locationiq.com/v1/search.php?format=json&key=${this.locationApiKey}&q=${searchFor}`;
         axios.get(API)
 
