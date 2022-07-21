@@ -55,7 +55,7 @@ class Main extends React.Component {
         })
         .catch(err => {
             console.log(err);
-            this.setState({error:`Sorry, I don't have the weather for that city! Please enter Seattle, Amman, or Paris.`});
+            this.setState({error:`Sorry, I don't have the weather for that city! Please enter Seattle, Amman, or Paris. (${err.code}: ${err.message})`});
             // eventually, this shouldn't be triggered by the same conditions as the invalid locationIQ search error - either add another state or move the whole weather process into a component & deal with it there
         })
     }
@@ -72,7 +72,7 @@ class Main extends React.Component {
 
         .catch(err => {
             console.log(err);
-            this.setState({error:`Sorry, I don't recognize that one!`});
+            this.setState({error:`Sorry, I don't recognize that one! (${err.code}: ${err.message})`});
         })
     }
 
@@ -104,7 +104,7 @@ class Main extends React.Component {
                     </Card>
                     <Card id="forecastCard">
                         <Card.Title>Three-day Forecast</Card.Title>
-                        <Card.Body show={this.state.error}>
+                        <Card.Body>
                             {this.forecastArr}
                         </Card.Body>
                     </Card>

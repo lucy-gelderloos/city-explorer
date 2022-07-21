@@ -75,8 +75,8 @@ Actual time needed to complete: 1.5h
 
 Estimate of time needed to complete: 2h
 
-Start time: 10:00 PM
+Start time: 10:00 PM Wednesday
 
-Finish time: n/a
+Finish time: 8:30 PM Thursday
 
-Actual time needed to complete: n/a
+Actual time needed to complete: 3h
