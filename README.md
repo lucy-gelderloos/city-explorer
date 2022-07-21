@@ -12,6 +12,8 @@
 ## Architecture
 
 ![Day 1 Whiteboard](./src/img/lab-06-whiteboard.png)
+![Day 2 Whiteboard](./src/img/lab-07-diagram.png)
+![Day 3 Whiteboard](./src/img/lab-08-diagram.png)
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
@@ -23,6 +25,7 @@
 ### Lab Partners
 
 - Austin Limanek
+- TJ Parker & Trevor Stephens
 
 ### Resources
 
@@ -75,8 +78,28 @@ Actual time needed to complete: 1.5h
 
 Estimate of time needed to complete: 2h
 
-Start time: 10:00 PM
+Start time: 10:00 PM Wednesday
 
-Finish time: n/a
+Finish time: 8:30 PM Thursday
 
-Actual time needed to complete: n/a
+Actual time needed to complete: 3h
+
+### Lab 8, Feature 1: Live Weather
+
+Estimate of time needed to complete: 1.5h
+
+Start time: 8:30 PM Thursday
+
+Finish time: 9:00 PM Thursday
+
+Actual time needed to complete: 1h
+
+### Lab 8, Feature 2: Movies
+
+Estimate of time needed to complete: 1.5h
+
+Start time: 9:00 PM Thursday
+
+Finish time: 10:30 PM Thursday
+
+Actual time needed to complete: 1.5h
