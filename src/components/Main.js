@@ -58,7 +58,7 @@ class Main extends React.Component {
         .then(response => {
             this.setState({ cityName:this.state.searchFor, lat:response.data[0].lat, lon:response.data[0].lon });
             // console.log('this.state.lat', this.state.lat);
-            // this.getWeather(this.state.searchFor, Math.round(response.data[0].lat), Math.round(response.data[0].lon));
+            this.getWeather(this.state.searchFor, Math.round(response.data[0].lat), Math.round(response.data[0].lon));
         })
 
         .catch(err => {
@@ -90,12 +90,12 @@ class Main extends React.Component {
                     <Card id="results">
                         <Card.Body>
                             <Card.Title>{this.state.cityName}</Card.Title>
-                            <Card.Subtitle>Latitude: {this.state.lat}, <br />Longitude: {Math.round(this.state.lon)}</Card.Subtitle>
+                            <Card.Subtitle>Latitude: {Math.round(this.state.lat)}, <br />Longitude: {Math.round(this.state.lon)}</Card.Subtitle>
                         </Card.Body>
                     </Card>
                 </Col>
                 <Col>
-                    <Map lat={this.state.lat} lon={this.state.lon} />
+                    <Map key={this.state.cityName} lat={this.state.lat} lon={this.state.lon} />
                 </Col>
             </Row>
         </div>
