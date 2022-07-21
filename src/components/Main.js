@@ -26,8 +26,8 @@ class Main extends React.Component {
         this.weatherApiKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
         this.locationUrl = "https://us1.locationiq.com/v1/search.php?format=json";
         this.weatherUrl = "https://api.weatherbit.io/v2.0/forecast/daily?";
-        // this.server = "http://localhost:3030";
-        this.server = "https://city-explorer-b34ce2.herokuapp.com"
+        this.server = process.env.REACT_APP_SERVER_LOCAL
+        // this.server = process.env.REACT_APP_SERVER_REMOTE
         this.forecastArr = [];
     }
     
@@ -72,16 +72,15 @@ class Main extends React.Component {
         })
     }
     
-    
     handleSearchCity = (searchFor) => {
-        const API = `${this.locationUrl}&key=pk.0b8f887fdd8b9e9ce24daafe3e11972a&q=${searchFor}`;
-        // const API = `${this.locationUrl}&key=${this.locationApiKey}&q=${searchFor}`;
+        // const API = `${this.locationUrl}&key={pk.0b8f887fdd8b9e9ce24daafe3e11972a&q}=${searchFor}`;
+        const API = `${this.locationUrl}&key=${this.locationApiKey}&q=${searchFor}`;
         axios.get(API)
 
         .then(response => {
             this.setState({ cityName:this.state.searchFor, lat:response.data[0].lat, lon:response.data[0].lon });
             // console.log('this.state.lat', this.state.lat);
-            this.getWeather(this.roundToTwo(response.data[0].lat), this.roundToTwo(response.data[0].lon));
+            this.getWeather(this.roundTo(response.data[0].lat,2), this.roundTo(response.data[0].lon,2));
             this.getMovies(this.state.searchFor);
         })
 
@@ -91,8 +90,8 @@ class Main extends React.Component {
         })
     }
 
-    roundToTwo(num){
-        return Number.parseFloat(num).toFixed(2);
+    roundTo(num, digits){
+        return Number.parseFloat(num).toFixed(digits);
     }
 
     render() {
