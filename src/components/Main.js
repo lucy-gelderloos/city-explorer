@@ -48,17 +48,31 @@ class Main extends React.Component {
         axios.get(weatherQuery)
 
         .then(response => {
-            console.log('Main response', response);
             this.setState({forecast: response.data});
-            this.forecastArr = response.data.map(el => <Col key={response.data.indexOf(el)}><strong>{el.date}</strong><br />{el.condition}<br />High of {el.high}, low of {el.low}</Col>)
+            this.forecastArr = response.data.map(el => <Col key={response.data.indexOf(el)}><strong>{el.date}</strong><br />{el.condition}<br />High of {el.high}, low of {el.low}</Col>);
             return this.forecastArr;
         })
         .catch(err => {
             console.log(err);
-            this.setState({error:`Sorry, I don't have the weather for that city! Please enter Seattle, Amman, or Paris. (${err.code}: ${err.message})`});
+            this.setState({error:`Sorry, I don't have the weather for that city! (${err.code}: ${err.message})`});
         })
     }
 
+    getMovies = (cityName) => {
+        const movieQuery = `${this.server}/movies?cityName=${cityName}`;
+        console.log('movieQuery', movieQuery);
+        axios.get(movieQuery)
+
+        .then(response => {
+            console.log('main move response', response);
+            this.moviesArr = response.data.map(el => <Col key={response.data.indexOf(el)}><strong>{el.title}</strong><br />{el.overview}<br />{el.releaseDate}</Col>);
+            return this.moviesArr;
+        })
+        .catch(err => {
+            console.log(err);
+            this.setState({error:`Sorry, I don't have movie info for that city! (${err.code}: ${err.message})`});
+        })
+    }
     
     
     handleSearchCity = (searchFor) => {
@@ -70,6 +84,7 @@ class Main extends React.Component {
             this.setState({ cityName:this.state.searchFor, lat:response.data[0].lat, lon:response.data[0].lon });
             // console.log('this.state.lat', this.state.lat);
             this.getWeather(this.roundToTwo(response.data[0].lat), this.roundToTwo(response.data[0].lon));
+            this.getMovies(this.state.searchFor);
         })
 
         .catch(err => {
@@ -118,6 +133,9 @@ class Main extends React.Component {
                 <Col>
                     <Map key={this.state.cityName} lat={this.state.lat} lon={this.state.lon} />
                 </Col>
+            </Row>
+            <Row>
+                {this.moviesArr}
             </Row>
         </div>
         );
