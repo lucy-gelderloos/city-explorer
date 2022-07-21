@@ -10,7 +10,7 @@ class Weather extends React.Component {
         this.lon = Math.round(props.lon);
         this.weatherSearchUrl = 'http://localhost:3030/weather?';
         this.state = {  
-            error:'',
+            error:false,
             forecast:[]
             }
     }    
