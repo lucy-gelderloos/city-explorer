@@ -1,5 +1,4 @@
 import Map from './Map.js';
-// import Input from './Input.js';
 import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -23,13 +22,13 @@ class Main extends React.Component {
             error: false,
             searchFor: ''
         };
-        this.apiKey = process.env.REACT_APP_API_KEY;
+        this.locationApiKey = process.env.REACT_APP_LOCATION_IQAPI_KEY;
+        this.weatherApiKey = process.env.REACT_APP_WEATHERBITAPI_KEY;
         this.searchUrl = "https://us1.locationiq.com/v1/search.php?format=json&";
-        this.weatherUrl = "http://localhost:3030/weather?"
-        // this.weatherUrl = "https://city-explorer-b34ce2.herokuapp.com/?"
+        // this.weatherUrl = "http://localhost:3030/weather?"
+        this.weatherUrl = "https://api.weatherbit.io/v2.0/forecast/daily?"
         this.cities = props.cities;
         this.forecastArr = [];
-        // this.blankSearch = true;
     }
     
     handleInputCity = (event) => {
@@ -43,37 +42,41 @@ class Main extends React.Component {
         // console.log('searchFor', this.state.searchFor)
     }
 
-    getWeather = (cityName,lat,lon) => {
-        const weatherQuery = `${this.weatherUrl}cityName=${cityName}&lat=${lat}&lon=${lon}`;
+    getWeather = (lat,lon) => {
+        const weatherQuery = `${this.weatherUrl}key=${this.weatherApiKey}&lat=${lat}&lon=${lon}`;
         console.log('weatherQuery',weatherQuery);
         axios.get(weatherQuery)
         .then(response => {
-            console.log('response.data', response.data);
-            this.setState({forecast: response.data});
-            this.forecastArr = response.data.map(el => <Col key={response.data.indexOf(el)}><strong>{el.date}</strong><br />{el.condition}<br />High of {el.high}, low of {el.low}</Col>)
+            console.log('response.data.data', response.data.data);
+            this.setState({forecast: response.data.data});
+            this.forecastArr = response.data.data.map(el => <Col key={response.data.data.indexOf(el)}><strong>{el.valid_date}</strong><br />{el.weather.description}<br />High of {el.high_temp}, low of {el.low_temp}</Col>)
             return this.forecastArr;
         })
         .catch(err => {
             console.log(err);
             this.setState({error:`Sorry, I don't have the weather for that city! Please enter Seattle, Amman, or Paris. (${err.code}: ${err.message})`});
-            // eventually, this shouldn't be triggered by the same conditions as the invalid locationIQ search error - either add another state or move the whole weather process into a component & deal with it there
         })
     }
     
     handleSearchCity = (searchFor) => {
-        const API = `https://us1.locationiq.com/v1/search.php?format=json&key=${this.apiKey}&q=${searchFor}&format=json`;
+        const API = `https://us1.locationiq.com/v1/search.php?format=json&key=pk.0b8f887fdd8b9e9ce24daafe3e11972a&q=${searchFor}`;
+        // const API = `https://us1.locationiq.com/v1/search.php?format=json&key=${this.locationApiKey}&q=${searchFor}`;
         axios.get(API)
 
         .then(response => {
             this.setState({ cityName:this.state.searchFor, lat:response.data[0].lat, lon:response.data[0].lon });
             // console.log('this.state.lat', this.state.lat);
-            this.getWeather(this.state.searchFor, Math.round(response.data[0].lat), Math.round(response.data[0].lon));
+            this.getWeather(this.roundToTwo(response.data[0].lat), this.roundToTwo(response.data[0].lon));
         })
 
         .catch(err => {
             console.log(err);
             this.setState({error:`Sorry, I don't recognize that one! (${err.code}: ${err.message})`});
         })
+    }
+
+    roundToTwo(num){
+        return Number.parseFloat(num).toFixed(2);
     }
 
     render() {
@@ -103,7 +106,7 @@ class Main extends React.Component {
                         </Card.Body>
                     </Card>
                     <Card id="forecastCard">
-                        <Card.Title>Three-day Forecast</Card.Title>
+                        <Card.Title>16-day Forecast</Card.Title>
                         <Card.Body>
                             {this.forecastArr}
                         </Card.Body>
