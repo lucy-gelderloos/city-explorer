@@ -10,7 +10,6 @@ import Col from 'react-bootstrap/Col';
 import axios from 'axios';
 
 // weather url: https://city-explorer-b34ce2.herokuapp.com/
-// full url: https://us1.locationiq.com/v1/search.php?format=json&key=pk.0b8f887fdd8b9e9ce24daafe3e11972a&q=seattle
 
 class Main extends React.Component {
 
@@ -26,7 +25,8 @@ class Main extends React.Component {
         };
         this.apiKey = process.env.REACT_APP_API_KEY;
         this.searchUrl = "https://us1.locationiq.com/v1/search.php?format=json&";
-        this.weatherUrl = ""
+        this.weatherUrl = "http://localhost:3030/weather?"
+        // this.weatherUrl = "https://city-explorer-b34ce2.herokuapp.com/?"
         this.cities = props.cities;
         // this.blankSearch = true;
     }
@@ -43,11 +43,18 @@ class Main extends React.Component {
     }
 
     getWeather = (cityName,lat,lon) => {
-        const weatherUrl = `http://localhost:3030/weather?cityName=${cityName}&lat=${lat}&lon=${lon}`;
-        axios.get(weatherUrl)
+        const weatherQuery = `${this.weatherUrl}cityName=${cityName}&lat=${lat}&lon=${lon}`;
+        console.log('weatherQuery',weatherQuery);
+        axios.get(weatherQuery)
         .then(response => {
-           this.setState({forecast: response.data});
+            console.log('response.data', response.data);
+            this.setState({forecast: response.data});
             console.log('this.state.forecast', this.state.forecast);
+        })
+        .catch(err => {
+            console.log(err);
+            this.setState({error:`Sorry, I don't have the weather for that city! Please enter Seattle, Amman, or Paris.`});
+            // eventually, this shouldn't be triggered by the same conditions as the invalid locationIQ search error - either add another state or move the whole weather process into a component & deal with it there
         })
     }
     
@@ -69,7 +76,7 @@ class Main extends React.Component {
 
     render() {
         // console.log('render this.state', this.state);
-        console.log('render lon',this.state.lon);
+        // console.log('render lon',this.state.lon);
         return (
         <div className="Main">
             <Alert show={this.state.error} onClose={() => this.setState({error:false})} dismissible>{this.state.error}</Alert>
