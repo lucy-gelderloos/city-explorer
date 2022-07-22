@@ -1,14 +1,16 @@
-import Map from './Map.js';
+import axios from 'axios';
 import React from 'react';
-import Form from 'react-bootstrap/Form';
+
+import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import Alert from 'react-bootstrap/Alert';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import axios from 'axios';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
-// weather url: https://city-explorer-b34ce2.herokuapp.com/
+import Map from './Map.js';
+import Weather from './Weather.js';
+import Movies from './Movies.js'
 
 class Main extends React.Component {
 
@@ -23,63 +25,31 @@ class Main extends React.Component {
             searchFor: ''
         };
         this.locationApiKey = process.env.REACT_APP_LOCATION_IQ_API_KEY;
-        this.weatherApiKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
         this.locationUrl = "https://us1.locationiq.com/v1/search.php?format=json";
-        this.weatherUrl = "https://api.weatherbit.io/v2.0/forecast/daily?";
-        // this.server = process.env.REACT_APP_SERVER_LOCAL
-        this.server = process.env.REACT_APP_SERVER_REMOTE
-        this.forecastArr = [];
+        this.server = process.env.REACT_APP_SERVER_LOCAL
+        // this.server = process.env.REACT_APP_SERVER_REMOTE
+        // this.forecastArr = [];
     }
     
     handleInputCity = (event) => {
         this.setState({searchFor: event.target.value});
+        console.log('handleInputCity this.setState searchFor',this.state.searchFor);
     }
 
     handleSubmit = (event) => {
         event.preventDefault();
+        this.setState({cityName:this.state.searchFor});
         this.handleSearchCity(this.state.searchFor);
     }
-
-    getWeather = (lat,lon) => {
-        const weatherQuery = `${this.server}/weather?&cityName=${this.state.searchFor}&lat=${lat}&lon=${lon}`;
-        axios.get(weatherQuery)
-
-        .then(response => {
-            this.setState({forecast: response.data});
-            this.forecastArr = response.data.map(el => <Col key={response.data.indexOf(el)}><strong>{el.date}</strong><br />{el.condition}<br />High of {el.high}, low of {el.low}</Col>);
-            return this.forecastArr;
-        })
-        .catch(err => {
-            console.log('error in getWeather',err);
-            this.setState({error:`Sorry, I don't have the weather for that city! (${err.code}: ${err.message})`});
-        })
-    }
-
-    getMovies = (cityName) => {
-        const movieQuery = `${this.server}/movies?cityName=${cityName}`;
-        axios.get(movieQuery)
-
-        .then(response => {
-            console.log('main move response', response);
-            this.moviesArr = response.data.map(el => <Col key={response.data.indexOf(el)}><strong>{el.title}</strong><br />{el.overview}<br />{el.releaseDate}</Col>);
-            return this.moviesArr;
-        })
-        .catch(err => {
-            console.log('error in getMovies',err);
-            this.setState({error:`Sorry, I don't have movie info for that city! (${err.code}: ${err.message})`});
-        })
-    }
-    
+ 
     handleSearchCity = (searchFor) => {
-        // const API = `${this.locationUrl}&key={pk.0b8f887fdd8b9e9ce24daafe3e11972a&q}=${searchFor}`;
         const API = `${this.locationUrl}&key=${this.locationApiKey}&q=${searchFor}`;
+        console.log('handleSearchCity API url',API);
         axios.get(API)
 
         .then(response => {
-            this.setState({ cityName:this.state.searchFor, lat:response.data[0].lat, lon:response.data[0].lon });
-            // console.log('this.state.lat', this.state.lat);
-            this.getWeather(this.roundTo(response.data[0].lat,2), this.roundTo(response.data[0].lon,2));
-            this.getMovies(this.state.searchFor);
+            console.log('handleSearchCity .then response',response.data[0].lon);
+            this.setState({ lat:response.data[0].lat, lon:response.data[0].lon });
         })
 
         .catch(err => {
@@ -88,13 +58,12 @@ class Main extends React.Component {
         })
     }
 
-    roundTo(num, digits){
-        return Number.parseFloat(num).toFixed(digits);
+    roundToTwo(num){
+        return Number.parseFloat(num).toFixed(2);
     }
 
     render() {
-        // console.log('render this.state', this.state);
-        // console.log('render lon',this.state.lon);
+        console.log('render this.state.lon, this.state.cityName', this.state.lon, this.state.cityName);
         return (
         <div className="Main">
             <Alert show={this.state.error} onClose={() => this.setState({error:false})} dismissible>{this.state.error}</Alert>
@@ -118,19 +87,14 @@ class Main extends React.Component {
                             <Card.Subtitle>Latitude: {Math.round(this.state.lat)}, <br />Longitude: {Math.round(this.state.lon)}</Card.Subtitle>
                         </Card.Body>
                     </Card>
-                    <Card id="forecastCard">
-                        <Card.Title>16-day Forecast</Card.Title>
-                        <Card.Body>
-                            {this.forecastArr}
-                        </Card.Body>
-                    </Card>
+                    <Weather key={this.state.cityName} cityName={this.state.cityName} lat={this.roundToTwo(this.state.lat)} lon={this.roundToTwo(this.state.lon)}  />
                 </Col>
                 <Col>
                     <Map key={this.state.cityName} lat={this.state.lat} lon={this.state.lon} />
                 </Col>
             </Row>
             <Row>
-                {this.moviesArr}
+                <Movies key={this.state.cityName} cityName ={this.state.cityName} />
             </Row>
         </div>
         );
