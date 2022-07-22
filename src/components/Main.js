@@ -26,8 +26,8 @@ class Main extends React.Component {
         this.weatherApiKey = process.env.REACT_APP_WEATHERBIT_API_KEY;
         this.locationUrl = "https://us1.locationiq.com/v1/search.php?format=json";
         this.weatherUrl = "https://api.weatherbit.io/v2.0/forecast/daily?";
-        this.server = process.env.REACT_APP_SERVER_LOCAL
-        // this.server = process.env.REACT_APP_SERVER_REMOTE
+        // this.server = process.env.REACT_APP_SERVER_LOCAL
+        this.server = process.env.REACT_APP_SERVER_REMOTE
         this.forecastArr = [];
     }
     
