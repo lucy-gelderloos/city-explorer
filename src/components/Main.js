@@ -42,7 +42,6 @@ class Main extends React.Component {
 
     getWeather = (lat,lon) => {
         const weatherQuery = `${this.server}/weather?&cityName=${this.state.searchFor}&lat=${lat}&lon=${lon}`;
-        console.log('weatherQuery',weatherQuery);
         axios.get(weatherQuery)
 
         .then(response => {
@@ -51,14 +50,13 @@ class Main extends React.Component {
             return this.forecastArr;
         })
         .catch(err => {
-            console.log(err);
+            console.log('error in getWeather',err);
             this.setState({error:`Sorry, I don't have the weather for that city! (${err.code}: ${err.message})`});
         })
     }
 
     getMovies = (cityName) => {
         const movieQuery = `${this.server}/movies?cityName=${cityName}`;
-        console.log('movieQuery', movieQuery);
         axios.get(movieQuery)
 
         .then(response => {
@@ -67,7 +65,7 @@ class Main extends React.Component {
             return this.moviesArr;
         })
         .catch(err => {
-            console.log(err);
+            console.log('error in getMovies',err);
             this.setState({error:`Sorry, I don't have movie info for that city! (${err.code}: ${err.message})`});
         })
     }
