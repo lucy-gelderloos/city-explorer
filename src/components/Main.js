@@ -17,12 +17,12 @@ class Main extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            cityName: '',
-            lat: '',
-            lon: '',
+            cityName: 'Seattle',
+            lat: 0,
+            lon: 0,
             forecast: [],
             error: false,
-            searchFor: ''
+            searchFor: 'Seattle'
         };
         this.locationApiKey = process.env.REACT_APP_LOCATION_IQ_API_KEY;
         this.locationUrl = "https://us1.locationiq.com/v1/search.php?format=json";
@@ -87,7 +87,7 @@ class Main extends React.Component {
                             <Card.Subtitle>Latitude: {Math.round(this.state.lat)}, <br />Longitude: {Math.round(this.state.lon)}</Card.Subtitle>
                         </Card.Body>
                     </Card>
-                    <Weather key={this.state.cityName} cityName={this.state.cityName} lat={this.roundToTwo(this.state.lat)} lon={this.roundToTwo(this.state.lon)}  />
+                    <Weather key={this.state.cityName} lat={this.roundToTwo(this.state.lat)} lon={this.roundToTwo(this.state.lon)}  />
                 </Col>
                 <Col>
                     <Map key={this.state.cityName} lat={this.state.lat} lon={this.state.lon} />

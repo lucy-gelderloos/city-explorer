@@ -11,16 +11,15 @@ class Weather extends React.Component {
             forecast:[],
             error:false
         }
-        this.cityName = props.cityName;
-        this.lat = parseInt(props.lat);
-        this.lon = parseInt(props.lon);
+        this.lat = props.lat;
+        this.lon = props.lon;
         this.forecastArr = [];
         this.server = process.env.REACT_APP_SERVER_LOCAL
         // this.server = process.env.REACT_APP_SERVER_REMOTE
     }
 
-getWeather = (lat,lon,city) => {
-    const weatherQuery = `${this.server}/weather?&cityName=${city}&lat=${lat}&lon=${lon}`;
+getWeather = (lat,lon) => {
+    const weatherQuery = `${this.server}/weather?lat=${lat}&lon=${lon}`;
     axios.get(weatherQuery)
 
     .then(response => {
@@ -35,7 +34,7 @@ getWeather = (lat,lon,city) => {
 }
 
 render() {
-    this.getWeather(this.lat, this.lon, this.cityName);
+    this.getWeather(this.lat, this.lon);
     return (
         <div className="weather">
             <Card id="forecastCard">
