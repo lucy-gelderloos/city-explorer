@@ -17,18 +17,19 @@ class Main extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            cityName: 'Seattle',
-            lat: 0,
-            lon: 0,
-            forecast: [],
             error: false,
-            searchFor: 'Seattle'
+            searchFor: '',
+            cityName: '',
+            lat: '',
+            lon: '',
+            forecast: [],
+            movies: []
         };
         this.locationApiKey = process.env.REACT_APP_LOCATION_IQ_API_KEY;
         this.locationUrl = "https://us1.locationiq.com/v1/search.php?format=json";
         this.server = process.env.REACT_APP_SERVER_LOCAL
         // this.server = process.env.REACT_APP_SERVER_REMOTE
-        // this.forecastArr = [];
+        this.forecastArr = [];
     }
     
     handleInputCity = (event) => {
@@ -38,18 +39,18 @@ class Main extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.setState({cityName:this.state.searchFor});
+        this.setState({cityName: this.state.searchFor});
         this.handleSearchCity(this.state.searchFor);
     }
  
     handleSearchCity = (searchFor) => {
         const API = `${this.locationUrl}&key=${this.locationApiKey}&q=${searchFor}`;
-        console.log('handleSearchCity API url',API);
         axios.get(API)
 
         .then(response => {
-            console.log('handleSearchCity .then response',response.data[0].lon);
-            this.setState({ lat:response.data[0].lat, lon:response.data[0].lon });
+            this.setState({cityName:searchFor, lat:response.data[0].lat, lon:response.data[0].lon });
+            this.getWeather(response.data[0].lat,response.data[0].lon);
+            this.getMovies(searchFor);
         })
 
         .catch(err => {
@@ -58,12 +59,33 @@ class Main extends React.Component {
         })
     }
 
-    roundToTwo(num){
-        return Number.parseFloat(num).toFixed(2);
+    getWeather = (lat,lon) => {
+        const weatherQuery = `${this.server}/weather?lat=${lat}&lon=${lon}`;
+        axios.get(weatherQuery)
+    
+        .then(response => {
+            this.setState({forecast: response.data});
+        })
+        .catch(err => {
+            console.log('error in getWeather',err);
+            this.setState({error:`Sorry, I don't have the weather for that city! (${err.code}: ${err.message})`});
+        })
+    }
+
+    getMovies = (cityName) => {
+        const movieQuery = `${this.server}/movies?cityName=${cityName}`;
+        axios.get(movieQuery)
+
+        .then(response => {
+            this.setState({movies:response.data});
+        })
+        .catch(err => {
+            console.log('error in getMovies',err);
+            this.setState({error:`Sorry, I don't have movie info for that city! (${err.code}: ${err.message})`});
+        })
     }
 
     render() {
-        console.log('render this.state.lon, this.state.cityName', this.state.lon, this.state.cityName);
         return (
         <div className="Main">
             <Alert show={this.state.error} onClose={() => this.setState({error:false})} dismissible>{this.state.error}</Alert>
@@ -87,14 +109,14 @@ class Main extends React.Component {
                             <Card.Subtitle>Latitude: {Math.round(this.state.lat)}, <br />Longitude: {Math.round(this.state.lon)}</Card.Subtitle>
                         </Card.Body>
                     </Card>
-                    <Weather key={this.state.cityName} lat={this.roundToTwo(this.state.lat)} lon={this.roundToTwo(this.state.lon)}  />
+                    <Weather forecast={this.state.forecast}  />
                 </Col>
                 <Col>
-                    <Map key={this.state.cityName} lat={this.state.lat} lon={this.state.lon} />
+                    <Map lat={this.state.lat} lon={this.state.lon}/>
                 </Col>
             </Row>
             <Row>
-                <Movies key={this.state.cityName} cityName ={this.state.cityName} />
+                <Movies movies={this.state.movies} />
             </Row>
         </div>
         );
