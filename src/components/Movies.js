@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Movie from './Movie.js';
 
 class Movies extends React.Component {
     constructor(props) {
@@ -13,7 +14,9 @@ class Movies extends React.Component {
      render() {
         return (
             <div className="movies">
-                {this.props.movies.map(el => <Col key={this.props.movies.indexOf(el)}><strong>{el.title}</strong><br />{el.overview}<br />{el.releaseDate}</Col>)}
+            <Row>
+                <Movie movies={this.props.movies} />
+            </Row>
             </div>
         )
     }

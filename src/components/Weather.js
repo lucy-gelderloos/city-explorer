@@ -1,7 +1,6 @@
 import React from 'react';
-
-import Card from 'react-bootstrap/Card';
-import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import WeatherDay from './WeatherDay.js';
 
 class Weather extends React.Component {
     constructor(props) {
@@ -15,12 +14,9 @@ class Weather extends React.Component {
 render() {
     return (
         <div className="weather">
-            <Card id="forecastCard">
-                <Card.Title>16-day Forecast</Card.Title>
-                <Card.Body>
-                    {this.props.forecast.map(el => <Col key={this.props.forecast.indexOf(el)}><strong>{el.date}</strong><br />{el.condition}<br />High of {Math.round(el.high)}, low of {Math.round(el.low)}</Col>)}
-                </Card.Body>
-            </Card>
+            <Row>
+                <WeatherDay forecast={this.props.forecast} />
+            </Row>
         </div>
     )
 }
