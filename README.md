@@ -14,6 +14,7 @@
 ![Day 1 Whiteboard](./src/img/lab-06-whiteboard.png)
 ![Day 2 Whiteboard](./src/img/lab-07-diagram.png)
 ![Day 3 Whiteboard](./src/img/lab-08-diagram.png)
+![Day 4 Whiteboard](./src/img/lab-09-diagram.png)
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
@@ -26,6 +27,7 @@
 
 - Austin Limanek
 - TJ Parker & Trevor Stephens
+- Kyel Boisseau
 
 ### Resources
 
@@ -58,9 +60,9 @@ Actual time needed to complete: 4.5h
 
 Estimate of time needed to complete: 2h
 
-Start time: 7:30 PM Tuesday
+Start time: 7:30 PM Monday
 
-Finish time: 4:45 PM Thursday
+Finish time: 4:45 PM Wednesday
 
 Actual time needed to complete: 2.5h
 
@@ -68,9 +70,9 @@ Actual time needed to complete: 2.5h
 
 Estimate of time needed to complete: 1h
 
-Start time: 9:00 PM Tuesday
+Start time: 9:00 PM Monday
 
-Finish time: 4:00 PM Thursday
+Finish time: 4:00 PM Wednesday
 
 Actual time needed to complete: 1.5h
 
@@ -78,9 +80,9 @@ Actual time needed to complete: 1.5h
 
 Estimate of time needed to complete: 2h
 
-Start time: 10:00 PM Wednesday
+Start time: 10:00 PM Tuesday
 
-Finish time: 8:30 PM Thursday
+Finish time: 8:30 PM Wednesday
 
 Actual time needed to complete: 3h
 
@@ -88,9 +90,9 @@ Actual time needed to complete: 3h
 
 Estimate of time needed to complete: 1.5h
 
-Start time: 8:30 PM Thursday
+Start time: 8:30 PM Wednesday
 
-Finish time: 9:00 PM Thursday
+Finish time: 9:00 PM Wednesday
 
 Actual time needed to complete: 1h
 
@@ -98,8 +100,38 @@ Actual time needed to complete: 1h
 
 Estimate of time needed to complete: 1.5h
 
-Start time: 9:00 PM Thursday
+Start time: 9:00 PM Wednesday
 
-Finish time: 10:30 PM Thursday
+Finish time: 10:30 PM Wednesday
 
 Actual time needed to complete: 1.5h
+
+### Lab 8, Feature 3: Publish
+
+Estimate of time needed to complete: 1h
+
+Start time: 10:30 PM Wednesday
+
+Finish time: 11:30 PM Wednesday
+
+Actual time needed to complete: 1h
+
+### Lab 9, Feature 1: Modularize
+
+Estimate of time needed to complete: 2h
+
+Start time: 3:00 PM Thursday
+
+Finish time: 11:30 AM Saturday
+
+Actual time needed to complete: 4h
+
+### Lab 9, Feature 2: Componentize
+
+Estimate of time needed to complete: 2h
+
+Start time: 3:00 PM Thursday
+
+Finish time: 11:30 AM Saturday
+
+Actual time needed to complete: 4h
