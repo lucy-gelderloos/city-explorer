@@ -27,8 +27,8 @@ class Main extends React.Component {
         };
         this.locationApiKey = process.env.REACT_APP_LOCATION_IQ_API_KEY;
         this.locationUrl = "https://us1.locationiq.com/v1/search.php?format=json";
-        this.server = process.env.REACT_APP_SERVER_LOCAL
-        // this.server = process.env.REACT_APP_SERVER_REMOTE
+        // this.server = process.env.REACT_APP_SERVER_LOCAL
+        this.server = process.env.REACT_APP_SERVER_REMOTE
         this.forecastArr = [];
     }
     
